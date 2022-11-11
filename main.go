@@ -32,11 +32,10 @@ const (
 
 func makeRedirectTLSHandler() http.Handler {
 	redirectTLS := func(w http.ResponseWriter, r *http.Request) {
-		redirectToHttp := "http://" + r.Host + r.RequestURI
 		redirectToHttps := "https://" + r.Host + r.RequestURI
 		log.Println("host: ", r.Host)
 		if r.Host == "testa.philoveritas.com" {
-			http.Redirect(w, r, redirectToHttp, http.StatusMovedPermanently)
+			http.DefaultServeMux.ServeHTTP(w, r)
 			return
 		}
 		log.Printf("Redirecting from %s to %s", r.Host+r.RequestURI, redirectToHttps)
