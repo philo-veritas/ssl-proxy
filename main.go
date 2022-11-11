@@ -35,7 +35,10 @@ func makeRedirectTLSHandler() http.Handler {
 		redirectToHttps := "https://" + r.Host + r.RequestURI
 		log.Println("host: ", r.Host)
 		if r.Host == "testa.philoveritas.com" {
-			http.DefaultServeMux.ServeHTTP(w, r)
+			// check cert is ready or not?
+			redirectToHttp := "http://" + r.Host + ":6060" + r.RequestURI
+			log.Printf("Redirecting http from %s to %s", r.Host+r.RequestURI, redirectToHttp)
+			http.Redirect(w, r, redirectToHttp, http.StatusMovedPermanently)
 			return
 		}
 		log.Printf("Redirecting from %s to %s", r.Host+r.RequestURI, redirectToHttps)
