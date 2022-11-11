@@ -1,3 +1,5 @@
 build
 .idea
 ssl-proxy
+cert.pem
+key.pem
