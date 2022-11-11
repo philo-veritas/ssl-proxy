@@ -34,6 +34,9 @@ func makeRedirectTLSHandler() http.Handler {
 	redirectTLS := func(w http.ResponseWriter, r *http.Request) {
 		redirectTo := "https://" + r.Host + r.RequestURI
 		log.Println("host: ", r.Host)
+		if r.Host == "testa.philoveritas.com" {
+			return
+		}
 		log.Printf("Redirecting from %s to %s", r.Host+r.RequestURI, redirectTo)
 		http.Redirect(w, r, redirectTo, http.StatusMovedPermanently)
 	}
