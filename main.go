@@ -99,7 +99,7 @@ func main() {
 		redirectTLS := func(w http.ResponseWriter, r *http.Request) {
 			// http.Redirect(w, r, "https://"+redirectURL+r.RequestURI, http.StatusMovedPermanently)
 
-			redirectTo := "https://" + redirectURL + r.RequestURI
+			redirectTo := "https://" + r.Host + r.RequestURI
 			log.Printf("Redirecting from %s to %s", r.Host+r.RequestURI, redirectTo)
 			http.Redirect(w, r, redirectTo, http.StatusFound)
 		}
